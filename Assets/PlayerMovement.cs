@@ -1,32 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    // Controls velocity multiplier
-    public float speed = 10f;
-    private float moveInput;
 
-    // Tells script there is a rigidbody,
-    // we can use variable rb to reference it in further script
-    Rigidbody2D rb;
+    public float speed;
+    public float jump;
+    public float groundedY;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // //rb equals the rigidbody on the player
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-
-    // Update is called once per frame
     void Update()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
 
-        // Creates velocity in direction of value equal to keypress (WASD)
-        // rb.velocity.y deals with falling + jumping by setting velocity to y. 
-        rb.velocity = new Vector2(moveInput * speed, moveInput * rb.velocity.y);
+        // Move
+        transform.Translate(Vector2.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
+
+        // Jump
+        if (Input.GetButtonDown("Jump") && IsGrounded())
+        {
+
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+
+        }
+
     }
+
+    public bool IsGrounded()
+    {
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0, groundedY), Vector2.down, .1f);
+
+        if (hit.collider != null)
+        {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawRay(transform.position + new Vector3(0, groundedY), Vector2.down * .1f);
+
+    }
+
 }
