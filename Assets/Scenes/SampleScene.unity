@@ -229,6 +229,7 @@ MonoBehaviour:
   speed: 10
   jump: 8
   groundedY: -0.6
+  maxJumps: 2
 --- !u!212 &180044088
 SpriteRenderer:
   m_ObjectHideFlags: 0

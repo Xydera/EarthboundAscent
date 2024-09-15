@@ -6,20 +6,25 @@ public class Player : MonoBehaviour
     public float speed;
     public float jump;
     public float groundedY;
+    public int maxJumps;
+
+    new Rigidbody2D rb;
+
+    int jumpsLeft;
+    bool controls = true;
 
     void Update()
     {
-
-        // Move
-        transform.Translate(Vector2.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
-
-        // Jump
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        rb = GetComponent<Rigidbody2D>();
+        if (controls)
         {
+            // Move
+            transform.Translate(Vector2.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
 
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
-
+            // Jump
+            CheckJump();
         }
+        
 
     }
 
@@ -39,7 +44,23 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
+    void CheckJump()
+    {
+
+        if (IsGrounded() && rb.velocity.y == 0) { jumpsLeft = maxJumps; }
+
+        if (Input.GetButtonDown("Jump") && jumpsLeft > 0)
+        {
+
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+
+            jumpsLeft--;
+
+        }
+    }
+        private void OnDrawGizmos()
     {
 
         Gizmos.color = Color.red;
