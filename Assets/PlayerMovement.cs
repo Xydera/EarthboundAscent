@@ -12,10 +12,17 @@ public class Player : MonoBehaviour
 
     int jumpsLeft;
     bool controls = true;
+    Vector2 startPosition;
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+        rb = GetComponent<Rigidbody2D>();
+    }
+
 
     void Update()
     {
-        rb = GetComponent<Rigidbody2D>();
         if (controls)
         {
             // Move
@@ -67,6 +74,11 @@ public class Player : MonoBehaviour
 
         Gizmos.DrawRay(transform.position + new Vector3(0, groundedY), Vector2.down * .1f);
 
+    }
+
+    public void Die()
+    {
+        transform.position = startPosition;
     }
 
 }
