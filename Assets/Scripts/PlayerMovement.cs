@@ -13,11 +13,13 @@ public class Player : MonoBehaviour
     int jumpsLeft;
     bool controls = true;
     Vector2 startPosition;
+    Animator animator;
 
     private void Awake()
     {
         startPosition = transform.position;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
 
@@ -30,8 +32,9 @@ public class Player : MonoBehaviour
 
             // Jump
             CheckJump();
+            CheckAnimations();
         }
-        
+
 
     }
 
@@ -63,6 +66,10 @@ public class Player : MonoBehaviour
 
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
 
+            animator.Play("jump");
+
+            if (Input.GetAxis("Horizontal") < 0) { animator.Play("jumpLeft"); }
+
             jumpsLeft--;
 
         }
@@ -79,6 +86,44 @@ public class Player : MonoBehaviour
     public void Die()
     {
         transform.position = startPosition;
+    }
+
+    public bool IsJumpFinished()
+    {
+
+        if (!IsGrounded()) { return false; }
+
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump")) { return true; }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < animator.GetCurrentAnimatorStateInfo(0).length) { return false; }
+
+        return true;
+    }
+
+    void CheckAnimations()
+    {
+        if (IsJumpFinished())
+        {
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+
+                animator.Play("runLeft");
+
+            }
+            else if (Input.GetAxis("Horizontal") > 0)
+            {
+
+                animator.Play("runRight");
+
+            }
+            else
+            {
+
+                animator.Play("Idle");
+
+            }
+        }
+            
     }
 
 }
