@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b19ca87d2384f0d46b065c9f69d3c7f8
+guid: 6700ebdff96b3054d9fc19b2afbd5769
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RUN_0
+      name: DEATH_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 109f222a73d852e40aaf249728d69a1e
-      internalID: -1637115096
+      spriteID: 789fb2e84bdd0ed44af4f13318f7bf35
+      internalID: 65789786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_1
+      name: DEATH_1
       rect:
         serializedVersion: 2
         x: 465
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2afdcaa6a817d9a4c8909b3403f8d71e
-      internalID: 1149046140
+      spriteID: dfa8a6851e43e03449745a5e66014976
+      internalID: 346873914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_2
+      name: DEATH_2
       rect:
         serializedVersion: 2
         x: 930
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84a4015fbeaa5cf4899963abd2579733
-      internalID: -251305250
+      spriteID: 7faf926697d94184ca32638dd1d0ba4e
+      internalID: 1345137715
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_3
+      name: DEATH_3
       rect:
         serializedVersion: 2
         x: 1395
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24dc568610b5b8144ad5112361beb4f4
-      internalID: 156014313
+      spriteID: 23308600745c8d949b7237d5709898fb
+      internalID: -1796277225
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_4
+      name: DEATH_4
       rect:
         serializedVersion: 2
         x: 1860
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee2906359583af44c8859440f98bacfb
-      internalID: -458873636
+      spriteID: 3417e0b95c5e0f54e91d68f1283d7438
+      internalID: -1640688554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_5
+      name: DEATH_5
       rect:
         serializedVersion: 2
         x: 2325
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e79bcc0fe7b4e9458c32cb85992edf1
-      internalID: -1560588282
+      spriteID: a7d5c129bf39ee64c8a273a81e3d06c3
+      internalID: -1425575548
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_6
+      name: DEATH_6
       rect:
         serializedVersion: 2
         x: 2790
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9400bdb308c90d6468ccdba51df06876
-      internalID: 1025069466
+      spriteID: d91c0e8317899da40836b4d0eb4b43c2
+      internalID: 2024052342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_7
+      name: DEATH_7
       rect:
         serializedVersion: 2
         x: 3255
@@ -271,8 +271,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a958e31bee1f4f84c9260ffd00703cfd
-      internalID: -1568789680
+      spriteID: cfb55b85b3472ce4da7d269e7254e3a4
+      internalID: 1920931145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DEATH_8
+      rect:
+        serializedVersion: 2
+        x: 3720
+        y: 0
+        width: 465
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e601d810763514a8de50102f0773c5
+      internalID: -1546953626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DEATH_9
+      rect:
+        serializedVersion: 2
+        x: 4185
+        y: 0
+        width: 465
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d02bfedea04bd8a4f9cae62179fe3531
+      internalID: -4989585
       vertices: []
       indices: 
       edges: []
@@ -288,14 +330,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RUN_0: -1637115096
-      RUN_1: 1149046140
-      RUN_2: -251305250
-      RUN_3: 156014313
-      RUN_4: -458873636
-      RUN_5: -1560588282
-      RUN_6: 1025069466
-      RUN_7: -1568789680
+      DEATH_0: 65789786
+      DEATH_1: 346873914
+      DEATH_2: 1345137715
+      DEATH_3: -1796277225
+      DEATH_4: -1640688554
+      DEATH_5: -1425575548
+      DEATH_6: 2024052342
+      DEATH_7: 1920931145
+      DEATH_8: -1546953626
+      DEATH_9: -4989585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

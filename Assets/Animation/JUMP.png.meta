@@ -115,8 +115,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 93
-        height: 112
+        width: 465
+        height: 560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35b713d540d0e624f8e629b030971691
-      internalID: 230071099
+      spriteID: 37e4fc83f03059f48bb11b7901ee1773
+      internalID: -237040688
       vertices: []
       indices: 
       edges: []
@@ -134,10 +134,10 @@ TextureImporter:
       name: JUMP_1
       rect:
         serializedVersion: 2
-        x: 93
+        x: 465
         y: 0
-        width: 93
-        height: 112
+        width: 465
+        height: 560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3fe52b02072d37d4d9c3951e84630451
-      internalID: 1084640870
+      spriteID: 5822e9571c606064088d611a59bb4148
+      internalID: -609587307
       vertices: []
       indices: 
       edges: []
@@ -155,10 +155,10 @@ TextureImporter:
       name: JUMP_2
       rect:
         serializedVersion: 2
-        x: 186
+        x: 930
         y: 0
-        width: 93
-        height: 112
+        width: 465
+        height: 560
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b7cc3239dd55ff439a5312846fc4383
-      internalID: -1954293761
+      spriteID: af10040d5e1198e438e9ea5146f701d8
+      internalID: 195900716
       vertices: []
       indices: 
       edges: []
@@ -183,9 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      JUMP_0: 230071099
-      JUMP_1: 1084640870
-      JUMP_2: -1954293761
+      JUMP_0: -237040688
+      JUMP_1: -609587307
+      JUMP_2: 195900716
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
