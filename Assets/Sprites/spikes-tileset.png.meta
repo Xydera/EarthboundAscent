@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ad05d259c275f541899a284acdadf5e
+guid: eb91b6c131c18274fb1a47264509f8ea
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,169 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RUN_0
+      name: spikes-tileset_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
+        width: 24
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 499fa55e40bd02044a582790ef873c9f
-      internalID: 314187050
+      spriteID: cf358b2330a713c43a70faf134c266ff
+      internalID: 1554856803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_1
+      name: spikes-tileset_1
       rect:
         serializedVersion: 2
-        x: 465
+        x: 24
         y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
+        width: 24
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 902aaefe3c74ebf43ba692d1ca5cb689
-      internalID: 1430633605
+      spriteID: 6f553120c33d92848888a3b5e3801d0b
+      internalID: -734054252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_2
+      name: spikes-tileset_2
       rect:
         serializedVersion: 2
-        x: 930
+        x: 48
         y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
+        width: 24
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f8106beb30807f43ab239185163d7fc
-      internalID: 1251662626
+      spriteID: 5f406bf0fe569f14a9720474b8e34705
+      internalID: 1773938919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RUN_3
+      name: spikes-tileset_3
       rect:
         serializedVersion: 2
-        x: 1395
+        x: 72
         y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
+        width: 24
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb74542d4ca44b848a2957f719fb4af9
-      internalID: 1403362491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RUN_4
-      rect:
-        serializedVersion: 2
-        x: 1860
-        y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 98a47586d65364c428c68cecb127e884
-      internalID: -434253207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RUN_5
-      rect:
-        serializedVersion: 2
-        x: 2325
-        y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2372cd2f9c2914c41bbbc6dfe8c3a5fb
-      internalID: -954670128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RUN_6
-      rect:
-        serializedVersion: 2
-        x: 2790
-        y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 989809a73418b7245b430f3e9fd6c3f2
-      internalID: -819267082
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RUN_7
-      rect:
-        serializedVersion: 2
-        x: 3255
-        y: 0
-        width: 465
-        height: 560
-      alignment: 9
-      pivot: {x: 0.510919, y: 0.231628}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b994fd23bcb9be41b3fea26bc1cdbe2
-      internalID: 1118314383
+      spriteID: a4d7c03c5c525c0419420880c99995de
+      internalID: -1457799330
       vertices: []
       indices: 
       edges: []
@@ -288,14 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RUN_0: 314187050
-      RUN_1: 1430633605
-      RUN_2: 1251662626
-      RUN_3: 1403362491
-      RUN_4: -434253207
-      RUN_5: -954670128
-      RUN_6: -819267082
-      RUN_7: 1118314383
+      spikes-tileset_0: 1554856803
+      spikes-tileset_1: -734054252
+      spikes-tileset_2: 1773938919
+      spikes-tileset_3: -1457799330
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

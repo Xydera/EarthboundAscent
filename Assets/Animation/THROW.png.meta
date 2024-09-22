@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25d8dad042d31a547858de9838122a77
+guid: 975dfcb1e593ba04da256177b0204e9b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,106 +110,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ATTACK 1_0
+      name: THROW_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 465
         height: 560
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ce42c56821d7b14aa22740729f671a7
-      internalID: 15771952
+      spriteID: 204c861a5cdf6c646afa0e7f7a526367
+      internalID: -1349796650
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK 1_1
+      name: THROW_1
       rect:
         serializedVersion: 2
-        x: 465
+        x: 464
         y: 0
         width: 465
         height: 560
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0a3c25ee629f6943b608f42e60e5420
-      internalID: -712996634
+      spriteID: a83070611e9ec3148aed1e4291643f16
+      internalID: -574535814
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK 1_2
+      name: THROW_2
       rect:
         serializedVersion: 2
         x: 930
         y: 0
         width: 465
         height: 560
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c37bd58cccae2e45bee90a2714682f6
-      internalID: 595743291
+      spriteID: 24b75135cd084b549a98856f7091522e
+      internalID: -409985604
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK 1_3
+      name: THROW_3
       rect:
         serializedVersion: 2
         x: 1395
         y: 0
         width: 465
         height: 560
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 586d89e9710d2a54091b7d073e4c4a33
-      internalID: -1054876779
+      spriteID: 15b8109ea5f5c0345ad468444f1e8657
+      internalID: 1073295314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ATTACK 1_4
+      name: THROW_4
       rect:
         serializedVersion: 2
         x: 1860
         y: 0
         width: 465
         height: 560
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2334e9f1dad1aa440b4d55aa18fe243f
-      internalID: -9169842
+      spriteID: 498424d066e8d47408dcebd31703b6c4
+      internalID: 56728515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THROW_5
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 0
+        width: 465
+        height: 560
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6fee865c4412dc408dcc1861fccc94a
+      internalID: -1654930454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: THROW_6
+      rect:
+        serializedVersion: 2
+        x: 2790
+        y: 0
+        width: 465
+        height: 560
+      alignment: 9
+      pivot: {x: 0.510919, y: 0.231628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 704f2263ebb5f99489642c8aea79e5c7
+      internalID: 383807691
       vertices: []
       indices: 
       edges: []
@@ -225,11 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ATTACK 1_0: 15771952
-      ATTACK 1_1: -712996634
-      ATTACK 1_2: 595743291
-      ATTACK 1_3: -1054876779
-      ATTACK 1_4: -9169842
+      THROW_0: -1349796650
+      THROW_1: -574535814
+      THROW_2: -409985604
+      THROW_3: 1073295314
+      THROW_4: 56728515
+      THROW_5: -1654930454
+      THROW_6: 383807691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

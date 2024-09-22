@@ -7,13 +7,18 @@ public class Player : MonoBehaviour
     public float jump;
     public float groundedY;
     public int maxJumps;
+    public float health;
+    public Shoot shoot;
+    public Animations animations;
 
     new Rigidbody2D rb;
 
     int jumpsLeft;
     bool controls = true;
+    bool dead;
     Vector2 startPosition;
     Animator animator;
+
 
     private void Awake()
     {
@@ -33,6 +38,7 @@ public class Player : MonoBehaviour
             // Jump
             CheckJump();
             CheckAnimations();
+            CheckShoot();
         }
 
 
@@ -53,6 +59,37 @@ public class Player : MonoBehaviour
         return false;
 
     }
+    void CheckShoot()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            
+            // Instantiate the bullet
+            GameObject bullet = Instantiate(shoot.prefab.gameObject);
+
+            // Set the bullet's initial position to the player's position
+            bullet.transform.position = transform.position;
+
+            // Get the mouse position in world space
+            Vector3 mousePositionRaw = Input.mousePosition;
+            mousePositionRaw.z = 10; // Set a proper distance for 2D projection
+
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionRaw);
+
+            // Calculate the direction from the bullet to the mouse position
+            Vector3 direction = mousePosition - bullet.transform.position;
+
+            // Calculate the angle in 2D
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            // Set the bullet's rotation
+            bullet.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            // Move the bullet forward
+            bullet.transform.Translate(Vector2.up * 1.5f);
+        }
+    }
+
 
     void CheckJump()
     {
@@ -66,7 +103,18 @@ public class Player : MonoBehaviour
 
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
 
-            animator.Play("jump");
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+
+                animator.Play("jumpLeft");
+
+            }
+            else if (Input.GetAxis("Horizontal") > 0)
+            {
+
+                animator.Play("jumpRight");
+
+            }
 
             if (Input.GetAxis("Horizontal") < 0) { animator.Play("jumpLeft"); }
 
@@ -85,7 +133,12 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+
+        animator.Play(animations.death.name, 0, 0);
         transform.position = startPosition;
+
+        
+
     }
 
     public bool IsJumpFinished()
@@ -125,5 +178,25 @@ public class Player : MonoBehaviour
         }
             
     }
+
+}
+
+[System.Serializable]
+public struct Animations
+{
+
+    public AnimationClip runLeft;
+    public AnimationClip runRight;
+    public AnimationClip jumpLeft;
+    public AnimationClip jumpRight;
+    public AnimationClip death;
+
+}
+
+[System.Serializable]
+public struct Shoot
+{
+
+    public Bullet prefab;
 
 }
