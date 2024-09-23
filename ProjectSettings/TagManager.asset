@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Death
   - Water
   - UI
   - 
@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background1
+    uniqueID: 121860895
+    locked: 0
+  - name: Background2
+    uniqueID: 1294608223
+    locked: 0
+  - name: Background3
+    uniqueID: 1039703385
+    locked: 0
+  - name: Background4
+    uniqueID: 363951793
+    locked: 0
+  - name: Background5
+    uniqueID: 2806208785
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
