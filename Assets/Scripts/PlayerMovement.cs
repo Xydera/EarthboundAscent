@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private bool CanDamage = true;
     private bool SoundRun = true;
     private bool isThrowing = false; // Track if player is in the middle of the throw animation
+    private bool isHurt = false;
 
     Rigidbody2D rb;
 
@@ -260,7 +261,7 @@ public class Player : MonoBehaviour
             }
 
             // Use the "jumpRight" animation, flip will handle direction
-            if (!isThrowing)
+            if (!isThrowing && !isHurt)
             {
                 animator.Play("jumpRight");
             }
@@ -297,6 +298,7 @@ public class Player : MonoBehaviour
             if (health > 0)
             {
                 SoundFXManager.instance.PlayRandomSoundFXClip(DamagedSoundClips, transform, 0.2f);
+                animator.Play("hurt");
                 health--;
             }
 
@@ -325,6 +327,11 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if (isHurt)
+        {
+            return;
+        }
+
         if (IsJumpFinished())
         {
             if (CanShoot)
@@ -341,8 +348,8 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing)
-                    {
+                    if (!isThrowing && !isHurt)
+                    { 
                         animator.Play("runRight");
                     }
                     
@@ -357,14 +364,14 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing)
+                    if (!isThrowing && !isHurt)
                     {
                         animator.Play("runRight");
                     }
                 }
                 else
                 {
-                    if (!isThrowing)
+                    if (!isThrowing && !isHurt)
                     {
                         animator.Play("Idle");
                     }
