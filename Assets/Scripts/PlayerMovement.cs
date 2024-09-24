@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -28,12 +29,13 @@ public class Player : MonoBehaviour
     public Animations animations;
 
     private bool CanShoot = true;
+    private bool Reloading = false;
     private bool CanStab = true;
     private bool CanDamage = true;
-    private bool Flipped = false;
     private bool SoundRun = true;
+    private bool isThrowing = false; // Track if player is in the middle of the throw animation
 
-    new Rigidbody2D rb;
+    Rigidbody2D rb;
 
     int jumpsLeft;
     bool controls = true;
@@ -60,16 +62,57 @@ public class Player : MonoBehaviour
 
         if (controls)
         {
-            // Move
-            transform.Translate(Vector2.right * Input.GetAxis("Horizontal") * speed * Time.deltaTime);
+            // Movement
+            float horizontal = Input.GetAxis("Horizontal");
+            transform.Translate(Vector2.right * horizontal * speed * Time.deltaTime);
 
-            // Jump
+            // Handle sprite flipping only if NOT throwing
+            if (!isThrowing)
+            {
+                // Normal flipping logic while grounded or in mid-air
+                if (!IsGrounded() || horizontal != 0)
+                {
+                    // Flip based on movement direction
+                    if (horizontal < 0)
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1); // Face left
+                    }
+                    else if (horizontal > 0)
+                    {
+                        transform.localScale = new Vector3(1, 1, 1); // Face right
+                    }
+                }
+            }
+            else
+            {
+                // While throwing, the flip is controlled by the cursor position (override)
+                FlipBasedOnCursor();
+            }
+
+            // Handle the rest of the player actions
             CheckJump();
             CheckAnimations();
             CheckShoot();
+            CheckStab();
         }
+    }
 
+    void FlipBasedOnCursor()
+    {
+        // Get the mouse position in world space
+        Vector3 mousePositionRaw = Input.mousePosition;
+        mousePositionRaw.z = 1; // Set a proper distance for 2D projection
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionRaw);
 
+        // Flip sprite based on mouse position relative to the player
+        if (mousePosition.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // Face left
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1); // Face right
+        }
     }
 
     public bool IsGrounded()
@@ -89,44 +132,37 @@ public class Player : MonoBehaviour
     }
     void CheckShoot()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && CanShoot && !isThrowing && !Reloading)
         {
-            if (CanShoot)
+            // Set the trigger to play the throwStar animation
+            animator.SetTrigger("ThrowStar");
+
+            // Play attack sound FX
+            SoundFXManager.instance.PlayRandomSoundFXClip(AttackSoundClips, transform, 0.2f);
+
+            // Instantiate the bullet
+            GameObject bullet = Instantiate(shoot.prefab.gameObject);
+            bullet.transform.position = transform.position;
+
+            Vector3 mousePositionRaw = Input.mousePosition;
+            mousePositionRaw.z = 1; // Set a proper distance for 2D projection
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionRaw);
+            Vector3 direction = mousePosition - bullet.transform.position;
+
+            // Calculate the angle in 2D and set the bullet's rotation
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            bullet.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+            // Move the bullet forward
+            bullet.transform.Translate(Vector2.up * 1.5f);
+
+            // Lock the player in the throw animation until it's finished
+            StartCoroutine(ShootDelay());
+
+            ammo--;
+            if (ammo == 0)
             {
-                // Play attack sound FX
-                SoundFXManager.instance.PlayRandomSoundFXClip(AttackSoundClips, transform, 0.2f);
-                animator.Play("throwStar");
-                
-                // Instantiate the bullet
-                GameObject bullet = Instantiate(shoot.prefab.gameObject);
-
-                // Set the bullet's initial position to the player's position
-                bullet.transform.position = transform.position;
-
-                // Get the mouse position in world space
-                Vector3 mousePositionRaw = Input.mousePosition;
-                mousePositionRaw.z = 1; // Set a proper distance for 2D projection
-
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mousePositionRaw);
-
-                // Calculate the direction from the bullet to the mouse position
-                Vector3 direction = mousePosition - bullet.transform.position;
-
-                // Calculate the angle in 2D
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                // Set the bullet's rotation
-                bullet.transform.rotation = Quaternion.Euler(0, 0, angle-90);
-
-                // Move the bullet forward
-                bullet.transform.Translate(Vector2.up * 1.5f);
-
-                ammo--;
-                StartCoroutine(ShootDelay());
-                if (ammo == 0)
-                {
-                    StartCoroutine(ReloadDelay());
-                }
+                StartCoroutine(ReloadDelay());
             }
         }
     }
@@ -155,20 +191,25 @@ public class Player : MonoBehaviour
 
     private IEnumerator ShootDelay()
     {
-        CanShoot = false;
-        yield return new WaitForSeconds(0.25F);
-        if (ammo > 0)
-        {
+        // Wait until the throwStar animation is done
+        if (!Reloading){
+            CanShoot = false;
+            isThrowing = true;
+            FlipBasedOnCursor();
+            yield return new WaitForSeconds((animator.GetCurrentAnimatorStateInfo(0).length) / 12); // Wait until animation finishes
+
+            // Allow other animations after throwing is done
+            isThrowing = false;
             CanShoot = true;
         }
-
+        
     }
 
     private IEnumerator ReloadDelay()
     {
-        CanShoot = false;
+        Reloading = true;
         yield return new WaitForSeconds(1);
-        CanShoot = true;
+        Reloading = false;
         ammo = 3;
     }
 
@@ -183,14 +224,16 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3F);
         SoundRun = true;
-        
+
 
     }
 
     void CheckJump()
     {
-
-        if (IsGrounded() && rb.velocity.y == 0) { jumpsLeft = maxJumps; }
+        if (IsGrounded() && rb.velocity.y == 0)
+        {
+            jumpsLeft = maxJumps;
+        }
 
         if (Input.GetButtonDown("Jump") && jumpsLeft > 0)
         {
@@ -204,29 +247,29 @@ public class Player : MonoBehaviour
             }
 
             rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
 
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jump, ForceMode2D.Impulse);
-
+            // Flip the sprite based on horizontal movement during the jump
             if (Input.GetAxis("Horizontal") < 0)
             {
-                
-                animator.Play("jumpLeft");
-
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (Input.GetAxis("Horizontal") > 0)
             {
-
-                animator.Play("jumpRight");
-
+                transform.localScale = new Vector3(1, 1, 1);
             }
 
-            if (Input.GetAxis("Horizontal") < 0) { animator.Play("jumpLeft"); }
-
+            // Use the "jumpRight" animation, flip will handle direction
+            if (!isThrowing)
+            {
+                animator.Play("jumpRight");
+            }
+            
             jumpsLeft--;
-
         }
     }
-        private void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
 
         Gizmos.color = Color.red;
@@ -251,7 +294,7 @@ public class Player : MonoBehaviour
     {
         if (CanDamage)
         {
-            if (health > 0) 
+            if (health > 0)
             {
                 SoundFXManager.instance.PlayRandomSoundFXClip(DamagedSoundClips, transform, 0.2f);
                 health--;
@@ -267,7 +310,7 @@ public class Player : MonoBehaviour
 
         if (!IsGrounded()) { return false; }
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Jump")) { return true; }
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("JumpRight")) { return true; }
 
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < animator.GetCurrentAnimatorStateInfo(0).length) { return false; }
 
@@ -276,47 +319,63 @@ public class Player : MonoBehaviour
 
     void CheckAnimations()
     {
+        if (isThrowing)
+        {
+            // Prevent other animations from playing while throwing
+            return;
+        }
+
         if (IsJumpFinished())
         {
             if (CanShoot)
             {
-                    if (Input.GetAxis("Horizontal") < 0)
+                float horizontal = Input.GetAxis("Horizontal");
+
+                if (horizontal < 0)
                 {
+                    // Flip the sprite to face left
+                    transform.localScale = new Vector3(-1, 1, 1);
                     if (SoundRun)
                     {
                         SoundRun = false;
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
+                    }
+                    if (!isThrowing)
+                    {
+                        animator.Play("runRight");
                     }
                     
-                    animator.Play("runLeft");
-
                 }
-                else if (Input.GetAxis("Horizontal") > 0)
+                else if (horizontal > 0)
                 {
+                    // Flip the sprite to face right
+                    transform.localScale = new Vector3(1, 1, 1);
                     if (SoundRun)
                     {
                         SoundRun = false;
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                       
-                    animator.Play("runRight");
-
+                    if (!isThrowing)
+                    {
+                        animator.Play("runRight");
+                    }
                 }
                 else
-                {                
+                {
+                    if (!isThrowing)
+                    {
                         animator.Play("Idle");
+                    }
+                    
                 }
-
             }
         }
-            
     }
-
 }
 
-[System.Serializable]
+    [System.Serializable]
 public struct Animations
 {
 

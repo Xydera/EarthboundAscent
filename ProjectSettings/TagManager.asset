@@ -53,6 +53,12 @@ TagManager:
   - name: Background5
     uniqueID: 2806208785
     locked: 0
+  - name: Just Behind
+    uniqueID: 2263650711
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3461865661
     locked: 0
