@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] RunSoundClips;
 
     [SerializeField] private AudioClip DoubleJumpSoundClip;
-    [SerializeField] private AudioClip SwingSoundClip;
 
 
     public GameObject deathSpawn;
@@ -35,7 +34,7 @@ public class Player : MonoBehaviour
     private bool CanDamage = true;
     private bool SoundRun = true;
     private bool isThrowing = false; // Track if player is in the middle of the throw animation
-    private bool isSlashing = false;
+    private bool isHurt = false;
 
     Rigidbody2D rb;
 
@@ -69,7 +68,7 @@ public class Player : MonoBehaviour
             transform.Translate(Vector2.right * horizontal * speed * Time.deltaTime);
 
             // Handle sprite flipping only if NOT throwing
-            if (!isThrowing && !isSlashing)
+            if (!isThrowing)
             {
                 // Normal flipping logic while grounded or in mid-air
                 if (!IsGrounded() || horizontal != 0)
@@ -134,7 +133,7 @@ public class Player : MonoBehaviour
     }
     void CheckShoot()
     {
-        if (Input.GetButtonDown("Fire2") && CanShoot && !isThrowing && !Reloading && !isSlashing)
+        if (Input.GetButtonDown("Fire2") && CanShoot && !isThrowing && !Reloading)
         {
             // Set the trigger to play the throwStar animation
             animator.SetTrigger("ThrowStar");
@@ -171,22 +170,24 @@ public class Player : MonoBehaviour
 
     void CheckStab()
     {
-        if (Input.GetButtonDown("Fire1") && !isThrowing && !isSlashing)
+        if (Input.GetButtonDown("Fire1"))
         {
-             SoundFXManager.instance.PlaySoundFXClip(SwingSoundClip, transform, 0.2f);
-             animator.SetTrigger("Attack");
-             StartCoroutine(StabDelay());            
+            if (CanStab)
+            {
+
+                SoundFXManager.instance.PlayRandomSoundFXClip(AttackSoundClips, transform, 0.2f);
+                animator.Play("attack");
+
+
+            }
         }
     }
 
     private IEnumerator StabDelay()
     {
         CanStab = false;
-        isSlashing = true;
-        FlipBasedOnCursor();
-        yield return new WaitForSeconds((animator.GetCurrentAnimatorStateInfo(0).length)/2); // Wait until animation finishes
+        yield return new WaitForSeconds(0.7F);
         CanStab = true;
-        isSlashing = false;
     }
 
     private IEnumerator ShootDelay()
@@ -260,7 +261,7 @@ public class Player : MonoBehaviour
             }
 
             // Use the "jumpRight" animation, flip will handle direction
-            if (!isThrowing && !isSlashing)
+            if (!isThrowing && !isHurt)
             {
                 animator.Play("jumpRight");
             }
@@ -297,6 +298,7 @@ public class Player : MonoBehaviour
             if (health > 0)
             {
                 SoundFXManager.instance.PlayRandomSoundFXClip(DamagedSoundClips, transform, 0.2f);
+                animator.Play("hurt");
                 health--;
             }
 
@@ -319,9 +321,14 @@ public class Player : MonoBehaviour
 
     void CheckAnimations()
     {
-        if (isThrowing && isSlashing)
+        if (isThrowing)
         {
             // Prevent other animations from playing while throwing
+            return;
+        }
+
+        if (isHurt)
+        {
             return;
         }
 
@@ -341,8 +348,8 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing && !isSlashing)
-                    {
+                    if (!isThrowing && !isHurt)
+                    { 
                         animator.Play("runRight");
                     }
                     
@@ -357,14 +364,14 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing && !isSlashing)
+                    if (!isThrowing && !isHurt)
                     {
                         animator.Play("runRight");
                     }
                 }
                 else
                 {
-                    if (!isThrowing && !isSlashing)
+                    if (!isThrowing && !isHurt)
                     {
                         animator.Play("Idle");
                     }
