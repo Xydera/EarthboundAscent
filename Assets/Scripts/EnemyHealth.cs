@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 2;
     public int health;
+    private bool Dead = false;
 
     Animator anim;
 
@@ -18,14 +19,19 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (health > 0)
+        if (!Dead)
         {
-            health -= damage;
-            if (health <= 0)
+            if (health > 0)
             {
-
-                Destroy(gameObject);
+                anim.SetTrigger("Hurt");
+                health -= damage;
+                if (health <= 0)
+                {
+                    anim.SetTrigger("Death");
+                    Dead = true;
+                }
             }
         }
+
     }
 }

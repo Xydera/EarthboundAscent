@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public Vector2 minBoundary;  // The minimum X and Y coordinates the camera can move to
     public Vector2 maxBoundary;  // The maximum X and Y coordinates the camera can move to
     public float smoothSpeed = 0.125f; // Smoothing factor for camera movement
+    
 
     private Vector3 offset; // Offset from player to camera
     private bool isPlayerDestroyed = false; // Flag to check if player is destroyed

@@ -10,12 +10,18 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] RunSoundClips;
 
     [SerializeField] private AudioClip DoubleJumpSoundClip;
+    [SerializeField] private AudioClip SwingSoundClip;
 
 
     public GameObject deathSpawn;
     public GameObject MainCamera;
+    public Heart_1 Heart1;
+    public Heart_2 Heart2;
+    public Heart_3 Heart3;
 
     public GameOverScreen GameOverScreen;
+
+    
 
 
 
@@ -34,6 +40,7 @@ public class Player : MonoBehaviour
     private bool CanDamage = true;
     private bool SoundRun = true;
     private bool isThrowing = false; // Track if player is in the middle of the throw animation
+    private bool isSwinging = false;
     private bool isHurt = false;
 
     Rigidbody2D rb;
@@ -68,7 +75,7 @@ public class Player : MonoBehaviour
             transform.Translate(Vector2.right * horizontal * speed * Time.deltaTime);
 
             // Handle sprite flipping only if NOT throwing
-            if (!isThrowing)
+            if (!isThrowing && !isSwinging)
             {
                 // Normal flipping logic while grounded or in mid-air
                 if (!IsGrounded() || horizontal != 0)
@@ -133,7 +140,7 @@ public class Player : MonoBehaviour
     }
     void CheckShoot()
     {
-        if (Input.GetButtonDown("Fire2") && CanShoot && !isThrowing && !Reloading)
+        if (Input.GetButtonDown("Fire2") && CanShoot && !isThrowing && !Reloading && !isSwinging)
         {
             // Set the trigger to play the throwStar animation
             animator.SetTrigger("ThrowStar");
@@ -170,14 +177,14 @@ public class Player : MonoBehaviour
 
     void CheckStab()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !isSwinging)
         {
             if (CanStab)
             {
 
-                SoundFXManager.instance.PlayRandomSoundFXClip(AttackSoundClips, transform, 0.2f);
+                SoundFXManager.instance.PlaySoundFXClip(SwingSoundClip, transform, 0.2f);
                 animator.Play("attack");
-
+                StartCoroutine(StabDelay());
 
             }
         }
@@ -186,7 +193,9 @@ public class Player : MonoBehaviour
     private IEnumerator StabDelay()
     {
         CanStab = false;
-        yield return new WaitForSeconds(0.7F);
+        isSwinging = true;
+        yield return new WaitForSeconds((animator.GetCurrentAnimatorStateInfo(0).length) / 2);
+        isSwinging = false;
         CanStab = true;
     }
 
@@ -261,7 +270,7 @@ public class Player : MonoBehaviour
             }
 
             // Use the "jumpRight" animation, flip will handle direction
-            if (!isThrowing && !isHurt)
+            if (!isThrowing && !isHurt && !isSwinging)
             {
                 animator.Play("jumpRight");
             }
@@ -281,6 +290,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        Heart3.Healthdown();
         MainCamera.transform.parent = null;
         Instantiate(deathSpawn);
         deathSpawn.transform.position = transform.position;
@@ -298,8 +308,16 @@ public class Player : MonoBehaviour
             if (health > 0)
             {
                 SoundFXManager.instance.PlayRandomSoundFXClip(DamagedSoundClips, transform, 0.2f);
-                animator.Play("hurt");
                 health--;
+                if (health == 2)
+                {
+                    Heart1.Healthdown();
+                }
+                if (health == 1)
+                {
+                    Heart2.Healthdown();
+                }
+
             }
 
 
@@ -321,7 +339,7 @@ public class Player : MonoBehaviour
 
     void CheckAnimations()
     {
-        if (isThrowing)
+        if (isThrowing && isSwinging)
         {
             // Prevent other animations from playing while throwing
             return;
@@ -348,7 +366,7 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing && !isHurt)
+                    if (!isThrowing && !isHurt && !isSwinging)
                     { 
                         animator.Play("runRight");
                     }
@@ -364,14 +382,14 @@ public class Player : MonoBehaviour
                         StartCoroutine(RunSoundDelay());
                         SoundFXManager.instance.PlayRandomSoundFXClip(RunSoundClips, transform, 0.05f);
                     }
-                    if (!isThrowing && !isHurt)
+                    if (!isThrowing && !isHurt && !isSwinging)
                     {
                         animator.Play("runRight");
                     }
                 }
                 else
                 {
-                    if (!isThrowing && !isHurt)
+                    if (!isThrowing && !isHurt && !isSwinging)
                     {
                         animator.Play("Idle");
                     }
@@ -393,6 +411,7 @@ public struct Animations
     public AnimationClip death;
     public AnimationClip throwStar;
     public AnimationClip attack;
+    public AnimationClip hurt;
 
 }
 
